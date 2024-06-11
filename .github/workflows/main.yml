@@ -31,7 +31,10 @@ jobs:
              ls FS/System/Library
              FilePath="FS${{inputs.Path}}"
              FileName=$(basename "$FilePath")
-             zip -r9 "$FileName.zip" "$FilePath"
+             #zip -r9 "$FileName.zip" "$FilePath"
+             mkdir Stuff
+             cp -r 
+             zip -r9 "$FileName.zip" Stuff
       - name: Upload 
         uses: actions/upload-artifact@v3
         with:
