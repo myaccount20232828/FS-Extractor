@@ -1,0 +1,39 @@
+name: iOS FS Extractor
+on:
+  workflow_dispatch:
+    inputs:
+      IPSW:
+        description: 'IPSW URL'
+        required: true
+        type: string
+      Path:
+        description: 'Path of the file you wish to zip.'
+        required: true
+        type: string
+jobs:
+  Extract:
+    name: iOS FS Extractor
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download IPSW
+        run: curl "${{inputs.IPSW}}" -o IPSW.ipsw
+      - name: Extract IPSW
+        run: unzip *.ipsw -d ExtractedIPSW
+      - name: Mount DMG
+        run: hdiutil attach -mountpoint FS ExtractedIPSW/$(/usr/libexec/PlistBuddy -c "print BuildIdentities:0:Manifest:OS:Info:Path" ExtractedIPSW/BuildManifest.plist)
+      - name: Clean Up
+        run: rm *.ipsw && rm -rf ExtractedIPSW
+      - name: Make Zip
+        run: |
+             ls FS
+             echo end here
+             ls FS/System/Library
+             FilePath="FS${{inputs.Path}}"
+             FileName=$(basename "$FilePath")
+             zip -r9 "$FileName.zip" "$FilePath"
+      - name: Upload 
+        uses: actions/upload-artifact@v3
+        with:
+          name: File.zip
+          path: "*.zip"
