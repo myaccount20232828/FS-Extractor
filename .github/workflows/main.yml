@@ -33,7 +33,8 @@ jobs:
              FileName=$(basename "$FilePath")
              #zip -r9 "$FileName.zip" "$FilePath"
              mkdir Stuff
-             cp -r 
+             cp -r FS/System/Library/CoreServices/SpringBoard.app Stuff
+             cp -r FS/System/Library/ControlCenter Stuff
              zip -r9 "$FileName.zip" Stuff
       - name: Upload 
         uses: actions/upload-artifact@v3
