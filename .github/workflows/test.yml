@@ -16,13 +16,13 @@ jobs:
             requests
             pyhpke
       - name: Download IPSW
-        run: curl "${{inputs.IPSW}}" -o IPSW.ipsw
+        run: curl "https://updates.cdn-apple.com/2024SummerSeed/fullrestores/052-34764/D5D3D10C-E557-4A46-8EBD-290411A228AA/iPhone16,2_18.0_22A5282m_Restore.ipsw" -o IPSW.ipsw
       - name: Extract IPSW
         run: unzip *.ipsw -d ExtractedIPSW
       - name: Mount DMG
         run: |
              python get_key.py ExtractedIPSW/$(/usr/libexec/PlistBuddy -c "print BuildIdentities:0:Manifest:OS:Info:Path" ExtractedIPSW/BuildManifest.plist)
-             hdiutil attach -mountpoint FS test.dmg
+             #hdiutil attach -mountpoint FS test.dmg
       - name: Clean Up
         run: rm *.ipsw && rm -rf ExtractedIPSW
       - name: Make Zip
@@ -30,13 +30,10 @@ jobs:
              ls FS
              echo end here
              ls FS/System/Library
-             FilePath="FS${{inputs.Path}}"
-             FileName=$(basename "$FilePath")
-             #zip -r9 "$FileName.zip" "$FilePath"
              mkdir Stuff
              cp -r FS/System/Library/CoreServices/SpringBoard.app Stuff
              cp -r FS/System/Library/ControlCenter Stuff
-             zip -r9 "$FileName.zip" Stuff
+             zip -r9 "Stuff.zip" Stuff
       - name: Upload 
         uses: actions/upload-artifact@v3
         with:
