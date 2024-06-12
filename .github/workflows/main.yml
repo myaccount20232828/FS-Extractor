@@ -26,16 +26,9 @@ jobs:
         run: rm *.ipsw && rm -rf ExtractedIPSW
       - name: Make Zip
         run: |
-             ls FS
-             echo end here
-             ls FS/System/Library
              FilePath="FS${{inputs.Path}}"
              FileName=$(basename "$FilePath")
-             #zip -r9 "$FileName.zip" "$FilePath"
-             mkdir Stuff
-             cp -r FS/System/Library/CoreServices/SpringBoard.app Stuff
-             cp -r FS/System/Library/ControlCenter Stuff
-             zip -r9 "$FileName.zip" Stuff
+             zip -r9 "$FileName.zip" "$FilePath"
       - name: Upload 
         uses: actions/upload-artifact@v3
         with:
