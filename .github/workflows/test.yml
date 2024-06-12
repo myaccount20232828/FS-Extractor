@@ -1,0 +1,14 @@
+name: iOS FS Extractor
+on:
+  push:
+jobs:
+  Extract:
+    name: iOS FS Extractor
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Dependencies
+        run: pip3 install requests pyhpke
+      - name: Test
+        run: |
+             aea
