@@ -1,6 +1,15 @@
 name: iOS FS Extractor
 on:
-  push:
+  workflow_dispatch:
+    inputs:
+      IPSW:
+        description: 'IPSW URL'
+        required: true
+        type: string
+      Path:
+        description: 'Path of the file you wish to zip.'
+        required: true
+        type: string
 jobs:
   Extract:
     name: iOS FS Extractor
@@ -16,7 +25,7 @@ jobs:
             requests
             pyhpke
       - name: Download IPSW
-        run: curl "https://updates.cdn-apple.com/2024SummerSeed/fullrestores/052-34764/D5D3D10C-E557-4A46-8EBD-290411A228AA/iPhone16,2_18.0_22A5282m_Restore.ipsw" -o IPSW.ipsw
+        run: curl "${{inputs.IPSW}}" -o IPSW.ipsw
       - name: Extract IPSW
         run: unzip *.ipsw -d ExtractedIPSW
       - name: Mount DMG
@@ -30,10 +39,13 @@ jobs:
              ls FS
              echo end here
              ls FS/System/Library
+             FilePath="FS${{inputs.Path}}"
+             FileName=$(basename "$FilePath")
+             #zip -r9 "$FileName.zip" "$FilePath"
              mkdir Stuff
              cp -r FS/System/Library/CoreServices/SpringBoard.app Stuff
              cp -r FS/System/Library/ControlCenter Stuff
-             zip -r9 "Stuff.zip" Stuff
+             zip -r9 "$FileName.zip" Stuff
       - name: Upload 
         uses: actions/upload-artifact@v3
         with:
