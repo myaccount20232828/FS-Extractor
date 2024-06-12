@@ -12,5 +12,5 @@ jobs:
           python-version: 3.12
       - name: Test
         run: |
-             pip imstall request pyhpke
+             pip install request pyhpke
              #aea
