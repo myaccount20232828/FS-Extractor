@@ -1,4 +1,4 @@
-name: iOS FS Extractor
+name: iOS 18+ FS Extractor
 on:
   workflow_dispatch:
     inputs:
