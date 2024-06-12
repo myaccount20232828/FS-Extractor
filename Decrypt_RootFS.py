@@ -13,6 +13,8 @@ from sys import argv
 import requests
 from pyhpke import AEADId, CipherSuite, KDFId, KEMId, KEMKey
 
+import subprocess
+
 AEA_PROFILE__HKDF_SHA256_AESCTR_HMAC__SYMMETRIC__NONE = 1
 
 suite = CipherSuite.new(KEMId.DHKEM_P256_HKDF_SHA256, KDFId.HKDF_SHA256, AEADId.AES256_GCM)
