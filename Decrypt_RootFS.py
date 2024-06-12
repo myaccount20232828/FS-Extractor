@@ -13,7 +13,7 @@ from sys import argv
 import requests
 from pyhpke import AEADId, CipherSuite, KDFId, KEMId, KEMKey
 
-import subprocess
+import os
 
 AEA_PROFILE__HKDF_SHA256_AESCTR_HMAC__SYMMETRIC__NONE = 1
 
@@ -89,7 +89,7 @@ print(f"Executing command: {command}")
 
 # Execute the command
 try:
-    subprocess.run(command, shell=True, check=True)
+    os.system(command)
     print("Decryption successful.")
 except subprocess.CalledProcessError as e:
     print(f"Error: {e}")
