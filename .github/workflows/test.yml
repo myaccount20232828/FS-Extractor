@@ -6,9 +6,13 @@ jobs:
     name: iOS FS Extractor
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Install Dependencies
-        run: pip3 install requests pyhpke
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v1
+      - uses: BSFishy/pip-action@v1
+        with:
+          packages: |
+            requests
+            pyhpke
       - name: Test
         run: |
              aea
