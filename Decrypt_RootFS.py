@@ -81,4 +81,13 @@ privkey = KEMKey.from_pem(r.text)
 recipient = suite.create_recipient_context(enc_request, privkey)
 pt = recipient.open(wrapped_key)
 
-print(f"Key: {base64.b64encode(pt).decode()}")
+command = f"aea decrypt -i {aea_path} -o RootFS.dmg -key-value 'base64:{base64.b64encode(pt).decode()}'"
+
+print(f"Executing command: {command}")
+
+# Execute the command
+try:
+    subprocess.run(command, shell=True, check=True)
+    print("Decryption successful.")
+except subprocess.CalledProcessError as e:
+    print(f"Error: {e}")
