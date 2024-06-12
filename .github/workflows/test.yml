@@ -21,8 +21,8 @@ jobs:
         run: unzip *.ipsw -d ExtractedIPSW
       - name: Mount DMG
         run: |
-             python get_key.py ExtractedIPSW/$(/usr/libexec/PlistBuddy -c "print BuildIdentities:0:Manifest:OS:Info:Path" ExtractedIPSW/BuildManifest.plist)
-             #hdiutil attach -mountpoint FS test.dmg
+             python Decrypt_RootFS.py ExtractedIPSW/$(/usr/libexec/PlistBuddy -c "print BuildIdentities:0:Manifest:OS:Info:Path" ExtractedIPSW/BuildManifest.plist)
+             hdiutil attach -mountpoint FS RootFS.dmg
       - name: Clean Up
         run: rm *.ipsw && rm -rf ExtractedIPSW
       - name: Make Zip
