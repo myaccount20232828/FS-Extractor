@@ -12,7 +12,9 @@ jobs:
       - name: Extract IPSW
         run: unzip *.ipsw -d ExtractedIPSW
       - name: Mount DMG
-        run: echo -n "28c909fc6d322fa18940f03279d70880e59a4507998347c70d5b8ca7ef090ecccc15e82d" | hdiutil attach -stdinpass -mountpoint FS ExtractedIPSW/694-5262-39.dmg
+        run: |
+             dmg
+             echo -n "28c909fc6d322fa18940f03279d70880e59a4507998347c70d5b8ca7ef090ecccc15e82d" | hdiutil attach -stdinpass -mountpoint FS ExtractedIPSW/694-5262-39.dmg
       - name: Clean Up
         run: rm *.ipsw && rm -rf ExtractedIPSW
       - name: Make Zip
