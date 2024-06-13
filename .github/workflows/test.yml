@@ -1,0 +1,26 @@
+name: iOS FS Extractor
+on:
+  push:
+jobs:
+  Extract:
+    name: iOS FS Extractor
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download IPSW
+        run: curl "https://secure-appldnld.apple.com/iPhone/061-3538.20070629.B7vXa/iPhone1,1_1.0_1A543a_Restore.ipsw" -o IPSW.ipsw
+      - name: Extract IPSW
+        run: unzip *.ipsw -d ExtractedIPSW
+      - name: Mount DMG
+        run: echo -n "28c909fc6d322fa18940f03279d70880e59a4507998347c70d5b8ca7ef090ecccc15e82d" | hdiutil attach -stdinpass -mountpoint FS ExtractedIPSW/694-5262-39.dmg
+      - name: Clean Up
+        run: rm *.ipsw && rm -rf ExtractedIPSW
+      - name: Make Zip
+        run: |
+             FilePath="FS"
+             zip -r9 "RootFS.zip" "$FilePath"
+      - name: Upload 
+        uses: actions/upload-artifact@v3
+        with:
+          name: File.zip
+          path: "*.zip"
