@@ -7,6 +7,14 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-python@v5
+        with: 
+          python-version: 3.12
+      - uses: BSFishy/pip-action@v1
+        with:
+          packages: |
+            requests
+            pyhpke
       - name: Download IPSW
         run: curl "https://updates.cdn-apple.com/2024SummerSeed/fullrestores/052-34764/D5D3D10C-E557-4A46-8EBD-290411A228AA/iPhone16,2_18.0_22A5282m_Restore.ipsw" -o IPSW.ipsw
       - name: Extract IPSW
