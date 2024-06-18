@@ -28,12 +28,9 @@ jobs:
       - name: Make Zip
         run: |
              mkdir Stuff
-             cp -r FS/System/Library/PrivateFrameworks/MobileIcons.framework Stuff
-             cp -r FS/System/Library/CoreServices Stuff
-             cp -r FS/Applications Stuff
-             zip -r9 "RootFS.zip" Stuff
+             cp -r FS/System/Library/AppPlaceholders Stuff
       - name: Upload 
         uses: actions/upload-artifact@v3
         with:
           name: File.zip
-          path: "*.zip"
+          path: Stuff
