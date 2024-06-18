@@ -13,15 +13,14 @@ jobs:
         run: unzip *.ipsw -d ExtractedIPSW
       - name: Mount DMG
         run: |
-             chmod +x dmg
-             ./dmg extract ExtractedIPSW/694-5262-39.dmg RootFS.dmg -k 28c909fc6d322fa18940f03279d70880e59a4507998347c70d5b8ca7ef090ecccc15e82d
+             python Decrypt_RootFS.py ExtractedIPSW/$(/usr/libexec/PlistBuddy -c "print BuildIdentities:0:Manifest:OS:Info:Path" ExtractedIPSW/BuildManifest.plist)
              hdiutil attach -mountpoint FS RootFS.dmg
-      - name: Clean Up
         run: rm *.ipsw && rm -rf ExtractedIPSW
       - name: Make Zip
         run: |
-             FilePath="FS"
-             zip -r9 "RootFS.zip" "$FilePath"
+              mkdir Stuff
+              cp -r FS/
+              zip -r9 "RootFS.zip" Stuff
       - name: Upload 
         uses: actions/upload-artifact@v3
         with:
