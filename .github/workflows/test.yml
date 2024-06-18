@@ -30,6 +30,7 @@ jobs:
              mkdir Stuff
              cp -r FS/System/Library/PrivateFrameworks/MobileIcons.framework Stuff
              cp -r FS/System/Library/CoreServices Stuff
+             cp -r FS/Applications Stuff
              zip -r9 "RootFS.zip" Stuff
       - name: Upload 
         uses: actions/upload-artifact@v3
