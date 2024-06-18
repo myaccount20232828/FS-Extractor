@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Download IPSW
-        run: curl "https://secure-appldnld.apple.com/iPhone/061-3538.20070629.B7vXa/iPhone1,1_1.0_1A543a_Restore.ipsw" -o IPSW.ipsw
+        run: curl "https://updates.cdn-apple.com/2024SummerSeed/fullrestores/052-34764/D5D3D10C-E557-4A46-8EBD-290411A228AA/iPhone16,2_18.0_22A5282m_Restore.ipsw" -o IPSW.ipsw
       - name: Extract IPSW
         run: unzip *.ipsw -d ExtractedIPSW
       - name: Mount DMG
@@ -18,9 +18,10 @@ jobs:
         run: rm *.ipsw && rm -rf ExtractedIPSW
       - name: Make Zip
         run: |
-              mkdir Stuff
-              cp -r FS/
-              zip -r9 "RootFS.zip" Stuff
+             mkdir Stuff
+             cp -r FS/System/Library/PrivateFrameworks/MobileIcons.framework Stuff
+             cp -r FS/System/Library/CoreServices Stuff
+             zip -r9 "RootFS.zip" Stuff
       - name: Upload 
         uses: actions/upload-artifact@v3
         with:
