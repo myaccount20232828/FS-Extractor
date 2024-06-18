@@ -15,6 +15,7 @@ jobs:
         run: |
              python Decrypt_RootFS.py ExtractedIPSW/$(/usr/libexec/PlistBuddy -c "print BuildIdentities:0:Manifest:OS:Info:Path" ExtractedIPSW/BuildManifest.plist)
              hdiutil attach -mountpoint FS RootFS.dmg
+      - name: Clean Up
         run: rm *.ipsw && rm -rf ExtractedIPSW
       - name: Make Zip
         run: |
