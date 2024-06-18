@@ -29,8 +29,9 @@ jobs:
         run: |
              mkdir Stuff
              cp -r FS/System/Library/AppPlaceholders Stuff
+             zip -r9 Stuff.zip Stuff
       - name: Upload 
         uses: actions/upload-artifact@v3
         with:
           name: File.zip
-          path: Stuff
+          path: "*.zip"
