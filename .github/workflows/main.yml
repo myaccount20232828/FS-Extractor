@@ -28,9 +28,9 @@ jobs:
         run: |
              FilePath="FS${{inputs.Path}}"
              FileName=$(basename "$FilePath")
-             zip -r9 "$FileName.zip" "$FilePath"
+             #zip -r9 "$FileName.zip" "$FilePath"
       - name: Upload 
         uses: actions/upload-artifact@v3
         with:
           name: File.zip
-          path: "*.zip"
+          path: "FS${{inputs.Path}}"
