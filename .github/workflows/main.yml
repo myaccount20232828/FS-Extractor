@@ -28,9 +28,10 @@ jobs:
         run: |
              FilePath="FS${{inputs.Path}}"
              FileName=$(basename "$FilePath")
+             echo "FileName=$(FileName)" >> $GITHUB_ENV
              #zip -r9 "$FileName.zip" "$FilePath"
       - name: Upload 
         uses: actions/upload-artifact@v3
         with:
-          name: File.zip
+          name: ${{env.FileName}}
           path: "FS${{inputs.Path}}"
