@@ -1,4 +1,4 @@
-name: iOS FS Extractor
+name: iOS FS Extractor (Test)
 on:
   push:
 jobs:
